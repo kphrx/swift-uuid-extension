@@ -1,7 +1,4 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
-import struct Foundation.UUID
+@_exported import struct Foundation.UUID
 import typealias Foundation.uuid_t
 
 @available(iOS, deprecated: 17.0, renamed: "UUIDVariant")
@@ -16,6 +13,9 @@ public protocol UUIDVariantBase: RawRepresentable, Hashable, Equatable, CustomSt
   var uuid: uuid_t { get }
   var uuidString: String { get }
 
+  var version: UUID.Version { get }
+
+  init?(rawValue: UUID?)
   init?(uuid: uuid_t)
   init?(uuidString: String)
 }
@@ -32,13 +32,17 @@ extension UUIDVariantBase where RawValue == UUID {
     self.rawValue.uuidString
   }
 
+  public init?(rawValue: UUID?) {
+    guard let rawValue else { return nil }
+    self.init(rawValue: rawValue)
+  }
+
   public init?(uuid: uuid_t) {
     self.init(rawValue: .init(uuid: uuid))
   }
 
   public init?(uuidString: String) {
-    guard let uuid = UUID(uuidString: uuidString) else { return nil }
-    self.init(rawValue: uuid)
+    self.init(rawValue: .init(uuidString: uuidString))
   }
 
   public var description: String {
