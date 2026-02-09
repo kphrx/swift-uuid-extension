@@ -1,3 +1,6 @@
+// Copyright 2026 kPherox
+// SPDX-License-Identifier: Apache-2.0
+
 extension UUID {
   public static func v4() -> Self {
     .init()

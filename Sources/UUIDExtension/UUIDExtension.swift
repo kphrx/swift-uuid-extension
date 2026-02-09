@@ -1,3 +1,6 @@
+// Copyright 2025 kPherox
+// SPDX-License-Identifier: Apache-2.0
+
 @_exported import struct Foundation.UUID
 import typealias Foundation.uuid_t
 
